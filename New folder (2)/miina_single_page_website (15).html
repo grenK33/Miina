@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Miina — Everything, Everywhere, All at Once</title>
+  <meta name="description" content="A playful one‑page website celebrating Miina: scientist, artist, runner, cook, waffle reviewer, and all‑around delight."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --pastel-pink: #ffe4ec;
+      --pastel-pink-strong: #ffbfd4;
+      --pastel-blue: #dbe9ff;
+      --pastel-green: #e5f8ef;
+      --ink: #2a1d24;
+      --muted: #775d6d;
+      --bg: #faf6f7;
+      --card: #ffffff;
+      --chip: #fff0f5;
+      --accent: #f49abf;
+      --accent-2: #c8d9ff;
+      --shadow: 0 6px 18px rgba(0,0,0,.08);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--ink);
+      background: linear-gradient(135deg, var(--pastel-pink) 0%, var(--pastel-blue) 50%, var(--pastel-green) 100%);
+      line-height:1.65;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{width:100%;max-width:1000px;margin:0 auto;padding:24px}
+    .nav{position: sticky; top:0; z-index: 50; backdrop-filter: blur(8px); background: rgba(255,255,255,.75); border-bottom: 1px solid rgba(0,0,0,.05);}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.3px}
+    .brand-badge{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background: linear-gradient(135deg,var(--pastel-blue),var(--pastel-green)); color:#2a1d24;font-weight:800;box-shadow: var(--shadow)}
+    .links{display:flex;gap:18px;flex-wrap:wrap}
+    .links a{opacity:.85;font-weight:600}
+    .links a:hover{opacity:1;text-decoration:underline}
+    section{padding:72px 24px}
+    h1,h2{font-family: "Playfair Display", serif; line-height:1.15;margin:0 0 18px;color:#2a1d24}
+    h1{font-size: clamp(36px, 4vw, 52px)}
+    h2{font-size: clamp(28px, 3vw, 40px)}
+    p.lead{font-size: 1.15rem; color: #3c2b35}
+    .card{background: #fff; border:1px solid rgba(0,0,0,.06); border-radius: var(--radius); padding: 36px; box-shadow: var(--shadow)}
+    #about .profile{width:200px;height:200px;object-fit:cover;border-radius:50%;margin-bottom:24px;box-shadow:0 8px 18px rgba(0,0,0,.12);border:5px solid #fff;cursor:pointer}
+    .dog{position:fixed;bottom:20px;left:-200px;width:150px;z-index:9999;pointer-events:none;}
+    @keyframes walkDog{0%{left:-200px;}100%{left:110%;}}
+    .grid{display:grid;gap:20px}
+    @media(min-width:640px){.grid{grid-template-columns: repeat(2, minmax(0,1fr))}}
+    @media(min-width:960px){.grid{grid-template-columns: repeat(3, minmax(0,1fr))}}
+    .tile{background: var(--card); border: 1px solid rgba(0,0,0,.05); border-radius: var(--radius); padding: 20px 16px; display:flex; gap:12px; align-items:flex-start; transition: transform .25s ease, box-shadow .25s ease;}
+    .tile:hover{transform: translateY(-4px); box-shadow: var(--shadow)}
+    .emoji{font-size: 24px; line-height: 1}
+    .feature{font-weight:600}
+    .muted{color: var(--muted);font-size:0.9rem}
+    .callout{border-left:5px solid var(--accent); padding-left:16px; background: linear-gradient(90deg, #fff, #fff0f5)}
+    .error-wrap{display:grid; place-items:center; text-align:center}
+    .error-code{font-size: clamp(80px, 14vw, 160px); font-weight: 800; letter-spacing: 6px; background: linear-gradient(135deg, var(--pastel-pink-strong), var(--pastel-blue), var(--pastel-green)); -webkit-background-clip:text; background-clip:text; color: transparent; margin:0}
+    .error-sub{font-size: clamp(18px, 2.5vw, 24px); color:#3c2b35}
+    footer{padding: 24px; color:#5a4a53; font-size:.95rem; border-top:1px solid rgba(0,0,0,.05)}
+    .actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius: 999px; border:1px solid rgba(0,0,0,.08); background: linear-gradient(180deg, var(--pastel-pink-strong), var(--pastel-pink)); cursor:pointer; color:#2a1d24; font-weight:600}
+    .btn:hover{background: linear-gradient(180deg, var(--pastel-green), var(--pastel-blue))}
+    .chip{display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border-radius:999px; background:#fdfdfd; border:1px solid rgba(0,0,0,.08); font-weight:600}
+      /* Quiz styles (new, non-breaking) */
+    .quiz-card{text-align:center}
+    .quiz-body{display:none;margin-top:16px}
+    .options{display:grid;gap:12px;max-width:520px;margin:12px auto}
+    .option{padding:12px 16px;border-radius:12px;border:1px solid rgba(0,0,0,.08);background:#ffffff;font-weight:700;cursor:pointer;transition:transform .15s ease, background .15s ease, color .15s ease, border-color .15s ease}
+    .option:hover{transform:translateY(-2px)}
+    .option.selected{background:#b7f2d4;border-color:#31c48d;color:#0b3d2e}
+    .quiz-complete{display:none;margin-top:12px;font-weight:700;color:#0b3d2e}
+    .quiz-complete.show{display:block}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#about">
+        <span class="brand-badge">M</span>
+        <span>Miina</span>
+      </a>
+      <div class="links">
+        <a href="#about">About</a>
+        <a href="#highlights">Highlights</a>
+        <a href="#waffles">Waffles</a>
+        <a href="#flaws">Error&nbsp;404</a>
+      </div>
+    </div>
+  </nav>
+  <section id="about" class="section">
+    <div class="container">
+      <div class="card" style="text-align:center">
+        <img src="miina.png" alt="Photo of Miina" class="profile" onclick="walkDog()" />
+        <h1>About Miina</h1>
+        <p class="text">
+          Miina is a multi-talented person: a scientist who can draw, a runner who can cook, and a reviewer who makes good waffles sound extraordinary. She’s the kind of person who won’t kick you out, even when you absolutely beg for it on all fours. Also: yes, she’s very pretty. No, we don’t know how one person is this talented. We’ve launched an investigation (and so far we are clueless). On top of all that, she always speaks so warmly and positively about her friends and family, which somehow makes her even more impossible not to admire.
+        </p>
+        <div class="actions">
+          <span class="chip">⚗️ Scientist</span>
+          <span class="chip">👸 Princess</span>
+          <span class="chip">😎 Boss</span>
+          <span class="chip">🍳 Cook</span>
+          <span class="chip">🧇 Reviewer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <img id="dog" class="dog" src="dog.png" alt="dog" />
+  <section id="highlights" class="section">
+    <div class="container">
+      <h2>Highlights &amp; Lore</h2>
+      <p class="lead muted">This is (mostly) everything we’re allowed to reveal.</p>
+      <div class="grid" role="list">
+        <div class="tile" role="listitem"><span class="emoji">🚗</span><div><div class="feature">Steals cars</div><div class="muted">We don’t ask questions.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">🍳</span><div><div class="feature">Makes the best food</div><div class="muted">3 Michelin Stars worthy.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">🎱</span><div><div class="feature">Good at 8‑ball</div><div class="muted">Witnessed it first hand.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">🛰️</span><div><div class="feature">Never stops moving</div><div class="muted">Stay still so I can see you more...</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">⏱️</span><div><div class="feature">Has 25 hours in a day</div><div class="muted">Time bends for her.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">🏃‍♀️</span><div><div class="feature">Runs a lot</div><div class="muted">Catch her if you can.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">🌞</span><div><div class="feature">Most positive outlook</div><div class="muted">Just a cute bundle of joy.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">✨</span><div><div class="feature">Very pretty</div><div class="muted">In fact prettiest out there.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">⚗️</span><div><div class="feature">Loves chemistry (Scientist)</div><div class="muted">The "love" part may be a stretch.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">🎨</span><div><div class="feature">Good at drawing</div><div class="muted">Just how????</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">😀</span><div><div class="feature">Always happy</div><div class="muted">Her smile is SOOO contagious.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">💖</span><div><div class="feature">Kind to others</div><div class="muted">Heart of gold.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">🌟</span><div><div class="feature">Talented at everything</div><div class="muted">It’s getting unfair.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">🧇</span><div><div class="feature">Writes amazing reviews</div><div class="muted">Shakespeare in disguise.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">🏠</span><div><div class="feature">Doesn’t throw me out</div><div class="muted">Even if I beg for it.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">🎶</span><div><div class="feature">Is a Swiftie</div><div class="muted">Cuz yes.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">🫶</span><div><div class="feature">Very humble</div><div class="muted">Never heard her brag.</div></div></div>
+        <div class="tile" role="listitem"><span class="emoji">🧩</span><div><div class="feature">Has no flaws</div><div class="muted">More below…</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEW: Quiz Section (added without changing previous content) -->
+  <section id="quiz" class="section">
+    <div class="container">
+      <div class="card quiz-card">
+        <button class="btn" id="start-quiz">🎯 Take a 5‑sec quiz</button>
+        <div id="quiz-body" class="quiz-body" aria-hidden="true">
+          <h2>Who likes Miina the most?</h2>
+          <div class="options">
+            <button class="option">Technology</button>
+            <button class="option">Everyone</button>
+            <button class="option">The old drunk guy from the train</button>
+          </div>
+          <p class="muted" style="margin:8px 0 0">Click the <strong>right</strong> answer to complete.</p>
+          <div id="quiz-complete" class="quiz-complete">✅ Section complete! You may proceed.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="waffles" class="section">
+    <div class="container">
+      <h2>Waffle Review HQ</h2>
+      <div class="card callout">
+        <p class="lead">Miina writes amazing reviews (especially for waffles). Submissions open 25/7.</p>
+        <div class="actions">
+          <button class="btn" onclick="alert('Waffle submitted. Miina will soon get back with the 100% honest review.')">🧇 Submit a waffle</button>
+          <button class="btn" onclick="alert('Coming soon: Miina’s perfectly ranked waffle leaderboard™')">📈 See the rubric</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="flaws" class="section">
+    <div class="container error-wrap card" style="padding:48px">
+      <p style="margin:0 0 8px; color:#6f4d5c; font-weight:700; letter-spacing:.6px">Miina Has No Flaws</p>
+      <h2 class="error-sub" style="margin:0 0 8px">Error</h2>
+      <p class="error-code">404</p>
+      <p class="error-sub">Flaws not found. Try again later (you won’t find any).</p>
+      <div class="actions" style="justify-content:center">
+        <a class="btn" href="#about">⬆️ Back to the top</a>
+        <a class="btn" href="#highlights">✨ See highlights again</a>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      © 2025 The Miina Appreciation Society | All rights reserved | Built with ❤️ for Miina | Powered by Miina's endless positivity
+    </div>
+  </footer>
+  <script>
+    function walkDog(){
+      const dog=document.getElementById('dog');
+      dog.style.animation='none';
+      void dog.offsetWidth; // restart animation
+      dog.style.animation='walkDog 5s linear forwards';
+    }
+  </script>
+  <script>
+    // NEW: Tiny Quiz Logic (separate from existing code)
+    (function(){
+      const startBtn = document.getElementById('start-quiz');
+      const quizBody = document.getElementById('quiz-body');
+      const complete = document.getElementById('quiz-complete');
+      const options = document.querySelectorAll('#quiz .option');
+      if(startBtn){
+        startBtn.addEventListener('click', () => {
+          quizBody.style.display = 'block';
+          quizBody.setAttribute('aria-hidden','false');
+          startBtn.style.display = 'none';
+        });
+      }
+      options.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if(!btn.classList.contains('selected')){
+            btn.classList.add('selected');
+            btn.textContent = 'Gren';
+          }
+          const allSelected = Array.from(options).every(b => b.classList.contains('selected'));
+          if(allSelected){
+            complete.classList.add('show');
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
